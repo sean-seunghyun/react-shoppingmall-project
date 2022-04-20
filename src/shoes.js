@@ -1,24 +1,19 @@
-const shoes = [
-  {
-    id : 0,
-    title : "White and Black",
-    content : "Born in France",
-    price : 120000
-  },
+import React from "react";
+import { useHistory } from "react-router-dom";
 
-  {
-    id : 1,
-    title : "Red Knit",
-    content : "Born in Seoul",
-    price : 110000
-  },
+function Shoes(props) {
+    let history = useHistory();
 
-  {
-    id : 2,
-    title : "Grey Yordan",
-    content : "Born in the States",
-    price : 130000
+    return (
+      <div onClick={()=>{
+          history.push(`/detail/${props.data.id}`);}} className="col-md-4">
+        <div className="shoes">
+          <img src={props.image} alt=""/>
+          <h4>{props.data.title}</h4>
+          <div>{props.data.content}</div>
+        </div>
+      </div>
+    );
   }
-];
 
-export default shoes;
+  export default Shoes;

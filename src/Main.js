@@ -1,5 +1,6 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
+import Shoes from "./Shoes.js";
 
 function Main(props) {
   return (
@@ -17,11 +18,10 @@ function Main(props) {
         <div className="row">
           {props.shoes.map((item, index) => {
             return (
-              <Shoes
-                image={`https://codingapple1.github.io/shop/shoes${
-                  index + 1
+              <Shoes image={`https://codingapple1.github.io/shop/shoes${
+                  item.id + 1
                 }.jpg`}
-                data={props.shoes[index]} key={index} alt=''
+                data={item} key={index} alt=''
               ></Shoes>
             );
           })}
@@ -30,18 +30,5 @@ function Main(props) {
     </div>
   );
 }
-
-
-function Shoes(props) {
-    return (
-      <div className="col-md-4">
-        <div className="shoes">
-          <img src={props.image} alt=""/>
-          <h4>{props.data.title}</h4>
-          <div>{props.data.content}</div>
-        </div>
-      </div>
-    );
-  }
 
 export default Main;
