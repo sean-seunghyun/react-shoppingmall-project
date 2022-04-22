@@ -3,6 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import "./Detail.scss";
 
 function Detail(props) {
+
+
   let history = useHistory();
   let [alertBox, setAlertBox] = useState(true);
   let { id } = useParams();
@@ -11,19 +13,18 @@ function Detail(props) {
     let timeoutId = setTimeout(() => {
       setAlertBox(false);
     }, 2000);
-
     return () => {
-      console.log("will be closed");
+      clearTimeout(timeoutId);
     };
-  });
+  }, []);
 
   return (
     <div className="container">
       {
         alertBox 
-        ?<div className="box-alert">
+        ?(<div className="box-alert">
           <h4>상품이 몇개 남지 않았습니다.</h4>
-        </div>
+        </div>)
         :null
       }
 

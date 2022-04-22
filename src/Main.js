@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
 import Shoes from "./Shoes.js";
+import './Main.scss';
+import Axios from "axios";
 
 function Main(props) {
+
+  let [moreToLoad, setMoreToLoad] = useState(true);
+
   return (
     <div>
       <Carousel>
@@ -27,6 +32,24 @@ function Main(props) {
           })}
         </div>
       </div>
+
+      {
+        moreToLoad?
+        (<div className="btn btn-primary main-more" onClick={()=>{
+          Axios.get('https://codingapple1.github.io/shop/data2.json')
+          .then((result)=>{
+            let shoes = [...props.shoes];
+            shoes.push(...result.data);
+            props.setShoes(shoes)
+
+            setMoreToLoad(false);
+          })
+          .catch()
+  
+        }}>더 보기</div>)
+        :null
+      }
+  
     </div>
   );
 }
