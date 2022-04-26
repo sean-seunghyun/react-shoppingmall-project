@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Main(props) {
 
   let shoes = useSelector((state)=> state.shoes);
+  console.log(shoes);
   let dispatch = useDispatch();
   let currentRenderingCount = shoes.length;
   let totalRenderingCount = 6;

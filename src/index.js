@@ -29,7 +29,12 @@ function cartReducer(state = cartData, action){
     copy[0].quantity--;
     if(copy[0].quantity < 0) copy[0].quantity = 0;
     return copy;
-  }else{
+  }else if(action.type === 'moveToCart'){
+    let copy = [...state];
+    copy.push(action.payload.orderItem);
+    return copy;
+  }
+  else{
     return state;
   }
 
