@@ -22,16 +22,24 @@ function shoesReducer(state = shoesData, action){
 function cartReducer(state = cartData, action){
   if(action.type === 'addQuantity'){
     let copy = [...state];
-    copy[0].quantity++;
+    let index = copy.findIndex(item => item.id === action.payload.id);
+    copy[index].quantity++;
     return copy;
   }else if(action.type === 'reduceQuantity'){
     let copy = [...state];
-    copy[0].quantity--;
-    if(copy[0].quantity < 0) copy[0].quantity = 0;
+    let index = copy.findIndex(item => item.id === action.payload.id);
+    copy[index].quantity--;
+    if(copy[index].quantity < 0) copy[index].quantity = 0;
     return copy;
   }else if(action.type === 'moveToCart'){
     let copy = [...state];
-    copy.push(action.payload.orderItem);
+    let index = copy.findIndex(item => item.id === action.payload.orderItem.id);
+    if(index === -1){
+      action.payload.orderItem.quantity = 1;
+      copy.push(action.payload.orderItem);
+    }else{
+      copy[index].quantity++;
+    }
     return copy;
   }
   else{

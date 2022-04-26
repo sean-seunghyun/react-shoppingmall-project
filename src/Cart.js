@@ -1,9 +1,11 @@
 import React from "react";
 import { Table } from "react-bootstrap";
-import {connect} from 'react-redux';
+import { connect, useDispatch, useSelector } from "react-redux";
 
 function Cart(props) {
-    console.log(props);
+  let cartData = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
   return (
     <div>
       <Table striped bordered hover>
@@ -17,31 +19,46 @@ function Cart(props) {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>{props.state[0].title}</td>
-            <td>Otto</td>
-            <td>{props.state[0].quantity}</td>
-            <td><button onClick = {()=>{props.dispatch({type: 'addQuantity'})}}> + </button><button onClick = {()=>{props.dispatch({type:'reduceQuantity'})}}> - </button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>          
+          {cartData.map((item, index) => {
+            return (
+              <tr>
+                <td>{index+1}</td>
+                <td>{cartData[index].title}</td>
+                <td>{cartData[index].price}</td>
+                <td>{cartData[index].quantity}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      dispatch({ type: "addQuantity", payload:{id: item.id} });
+                    }}
+                  >
+                    {" "}
+                    +{" "}
+                  </button>
+                  <button
+                    onClick={() => {
+                      dispatch({ type: "reduceQuantity", payload:{id: item.id} });
+                    }}
+                  >
+                    {" "}
+                    -{" "}
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+         
         </tbody>
       </Table>
-      
     </div>
   );
 }
 
+// function stateToProps(state){
+//     return {
+//         state: state
+//     }
+// }
 
-function stateToProps(state){
-    return {
-        state: state
-    }
-}
-
-export default connect(stateToProps)(Cart);
+// export default connect(stateToProps)(Cart);
+export default Cart;

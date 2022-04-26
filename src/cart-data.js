@@ -1,6 +1,19 @@
 const cartData = [
-    {title:'빨간색 신발', price: '100$', quantity: 2},
-  {title:'파란색 신발', price: '90$', quantity: 5}
+  {
+    id : 0,
+    title : "White and Black",
+    content : "Born in France",
+    price : 120000,
+    quantity: 1
+  },
+
+  {
+    id : 2,
+    title : "Grey Yordan",
+    content : "Born in the States",
+    price : 130000,
+    quantity: 1
+  }
   ];
 
   export default cartData;

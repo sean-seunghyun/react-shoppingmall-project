@@ -2,12 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import "./Detail.scss";
+import { useDispatch, useSelector } from "react-redux";
 
 function Detail(props) {
   let history = useHistory();
   let [selectedTab, setSelectedTab] = useState(0);
   let [alertBox, setAlertBox] = useState(true);
   let { id } = useParams();
+  let state = useSelector((state) => state);
+  let shoesData = state.shoes;
+  let cartData = state.cart;
+
+  let currentItem = shoesData.find(shoes => shoes.id == id);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     let timeoutId = setTimeout(() => {
@@ -40,7 +48,12 @@ function Detail(props) {
           <h4 className="pt-5">{props.shoes[id].title}</h4>
           <p>{props.shoes[id].Detail}</p>
           <p>{props.shoes[id].price}</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button className="btn btn-danger"
+          onClick={()=>{
+            dispatch({type: 'moveToCart', payload:{orderItem : currentItem}});
+            history.push('/cart');
+          }}
+          >주문하기</button>
           <button
             className="btn btn-danger back"
             onClick={() => {

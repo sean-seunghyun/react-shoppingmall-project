@@ -4,7 +4,7 @@ const shoesData = [
     title : "White and Black",
     content : "Born in France",
     price : 120000,
-    quantity: 10
+    stock: 10
   },
 
   {
@@ -12,7 +12,7 @@ const shoesData = [
     title : "Red Knit",
     content : "Born in Seoul",
     price : 110000,
-    quantity: 11
+    stock: 11
   },
 
   {
@@ -20,7 +20,7 @@ const shoesData = [
     title : "Grey Yordan",
     content : "Born in the States",
     price : 130000,
-    quantity: 12
+    stock: 12
   }
 ];
 
