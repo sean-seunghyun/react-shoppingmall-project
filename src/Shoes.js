@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {stockContext} from "./App.js";
 function Shoes(props) {
-    //console.log(props.index);  
-  //console.log(shoesState[props.index]);
     let shoesState = useSelector((state)=> state.shoes);
     let history = useHistory();
     let stock = useContext(stockContext);
