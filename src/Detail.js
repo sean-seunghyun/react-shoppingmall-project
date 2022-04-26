@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { Nav } from "react-bootstrap";
 import "./Detail.scss";
 
 function Detail(props) {
-
-
   let history = useHistory();
+  let [selectedTab, setSelectedTab] = useState(0);
   let [alertBox, setAlertBox] = useState(true);
   let { id } = useParams();
 
@@ -20,13 +20,11 @@ function Detail(props) {
 
   return (
     <div className="container">
-      {
-        alertBox 
-        ?(<div className="box-alert">
+      {alertBox ? (
+        <div className="box-alert">
           <h4>상품이 몇개 남지 않았습니다.</h4>
-        </div>)
-        :null
-      }
+        </div>
+      ) : null}
 
       <div className="row">
         <div className="col-md-6">
@@ -53,8 +51,43 @@ function Detail(props) {
           </button>
         </div>
       </div>
+      <Nav variant="tabs" defaultActiveKey="description">
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setSelectedTab(0);
+            }}
+            eventKey="description"
+          >
+            Description
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setSelectedTab(1);
+            }}
+            eventKey="size"
+          >
+            Size
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TabContent selectedTab={selectedTab}></TabContent>
     </div>
   );
+}
+
+function TabContent(props) {
+
+
+
+  if (props.selectedTab === 0) {
+    return <div className="mt-4">0번째 탭입니다.</div>;
+  } else if (props.selectedTab === 1) {
+    return <div className="mt-4">1번째 탭입니다</div>;
+  }
+  return <div className="mt-4">아무 탭도 아닙니다.</div>;
 }
 
 export default Detail;

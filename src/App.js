@@ -4,17 +4,19 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import shoesData from "./shoes-data.js";
 import Main from "./Main";
 import Detail from "./Detail";
+import Cart from "./Cart";
 import { Link, Route, Switch } from "react-router-dom";
 export let stockContext = React.createContext();
 
 function App() {
   let [shoes, setShoes] = useState([...shoesData]);
   let [stock, setStock] = useState([10,11,12,13,14,15,16]);
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand>Shoes everywhere</Navbar.Brand>
+          <Navbar.Brand><Link to="/">Shoes everywhere</Link></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -44,14 +46,17 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          <stockContext.Provider value={stock}>
+          {/* <stockContext.Provider value={stock}> */}
             <Main shoes={shoes} setShoes={setShoes} />
-          </stockContext.Provider>
+          {/* </stockContext.Provider> */}
         </Route>
         <Route path="/detail/:id">
-          <stockContext.Provider>
+          {/* <stockContext.Provider> */}
             <Detail shoes={shoes} value={stock}/>
-          </stockContext.Provider>
+          {/* </stockContext.Provider> */}
+        </Route>
+        <Route path="/cart">
+          <Cart />
         </Route>
       </Switch>
     </div>

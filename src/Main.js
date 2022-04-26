@@ -3,10 +3,19 @@ import { Carousel } from "react-bootstrap";
 import Shoes from "./Shoes.js";
 import './Main.scss';
 import Axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 function Main(props) {
 
+  let shoes = useSelector((state)=> state.shoes);
+  let dispatch = useDispatch();
+  let currentRenderingCount = shoes.length;
+  let totalRenderingCount = 6;
   let [moreToLoad, setMoreToLoad] = useState(true);
+  if(currentRenderingCount >= totalRenderingCount){
+    setMoreToLoad('false');
+  }
+
 
   return (
     <div>
@@ -21,13 +30,11 @@ function Main(props) {
       </Carousel>
       <div className="container shoes-list">
         <div className="row">
-          {props.shoes.map((item, index) => {
+         {/* {console.log(shoes)} */}
+          {shoes.map((item, index) => {
+            console.log(item);
             return (
-              <Shoes image={`https://codingapple1.github.io/shop/shoes${
-                  item.id + 1
-                }.jpg`}
-                data={item} key={index} alt=''
-              ></Shoes>
+              <Shoes index={index} key={index} alt='' />
             );
           })}
         </div>
@@ -38,11 +45,12 @@ function Main(props) {
         (<div className="btn btn-primary main-more" onClick={()=>{
           Axios.get('https://codingapple1.github.io/shop/data2.json')
           .then((result)=>{
-            let shoes = [...props.shoes];
-            shoes.push(...result.data);
-            props.setShoes(shoes)
-
-            setMoreToLoad(false);
+            dispatch({type: 'addShoes', payload:{addedShoesData : result.data}});     
+            currentRenderingCount = shoes.length;
+            if(currentRenderingCount >= totalRenderingCount){
+              console.log(false);
+              setMoreToLoad(false);
+            }
           })
           .catch()
   
